@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!-- saved from url=(0036)https://s.bootsnipp.com/iframe/xraq9 -->
+<html lang="en" hc="b3" hcx="3"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Full Screen Search Popup On Focus - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./bootstrap.css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css');
+
+.ser-input{
+    border-color: transparent;
+    border-bottom-color: #fff;
+    color: #fff;
+}
+.ser-input:focus {
+    border-color: transparent;
+    color: #fff;
+    border-bottom: 1px solid #fff;
+}
+
+.search-full-view {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: rgb(0, 0, 0);
+    opacity: 0;
+    z-index: -1;
+    transition: .5s all;
+    transform: scale(0);
+}
+.search-full-view.search-normal-screen {
+    opacity: 1;
+    z-index: 1;
+    transform: scale(1);
+}
+
+.search-full-view .input-group {
+    width: 80%;
+    margin: 0 auto;
+    top: 40%;
+    height: 100px;
+}
+.search-full-view .input-group .form-control {
+    background: transparent;
+    border-bottom: 2px solid #fff;
+    font-size: 6em;
+    padding: 10px;
+    vertical-align: unset;
+    color: #cdcdcd;
+}
+.search-full-view .input-group .form-control:focus{
+    border-color: #fff;
+    border:0 !important;
+    border-bottom: 2px solid #fff !important;
+}
+.search-full-view .input-group .input-group-addon {
+    background: transparent;
+    font-size: 4em;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+}
+.search-full-view .btn-close {
+    background: transparent;
+    border: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.search-full-view .btn-close img { width: 60px; }
+    </style>
+    <script src="./jquery-1.10.2.min.js.download"></script>
+    <script src="./bootstrap.js.download"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+<style id="hc_style" type="text/css">html[hc="a0"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_off"); } html[hcx="0"] img[src*="jpg"], html[hcx="0"] img[src*="jpeg"], html[hcx="0"] svg image, html[hcx="0"] img.rg_i, html[hcx="0"] embed, html[hcx="0"] object, html[hcx="0"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_off"); }  html[hc="a1"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_highcontrast"); } html[hcx="1"] img[src*="jpg"], html[hcx="1"] img[src*="jpeg"], html[hcx="1"] img.rg_i, html[hcx="1"] svg image, html[hcx="1"] embed, html[hcx="1"] object, html[hcx="1"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_highcontrast_back"); }  html[hc="a2"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_grayscale"); } html[hcx="2"] img[src*="jpg"], html[hcx="2"] img[src*="jpeg"], html[hcx="2"] img.rg_i, html[hcx="2"] svg image, html[hcx="2"] embed, html[hcx="2"] object, html[hcx="2"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_grayscale_back"); }  html[hc="a3"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_invert"); } html[hcx="3"] img[src*="jpg"], html[hcx="3"] img[src*="jpeg"], html[hcx="3"] img.rg_i, html[hcx="3"] svg image, html[hcx="3"] embed, html[hcx="3"] object, html[hcx="3"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_invert_back"); }  html[hc="a4"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_invert_grayscale"); } html[hcx="4"] img[src*="jpg"], html[hcx="4"] img[src*="jpeg"], html[hcx="4"] img.rg_i, html[hcx="4"] svg image, html[hcx="4"] embed, html[hcx="4"] object, html[hcx="4"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_invert_back"); }  html[hc="a5"] {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_yellow_on_black"); } html[hcx="5"] img[src*="jpg"], html[hcx="5"] img[src*="jpeg"], html[hcx="5"] img.rg_i, html[hcx="5"] svg image, html[hcx="5"] embed, html[hcx="5"] object, html[hcx="5"] video {   -webkit-filter: url("https://s.bootsnipp.com/iframe/xraq9#hc_extension_yellow_on_black_back"); }</style></head>
+<body style="">
+	
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="https://s.bootsnipp.com/iframe/xraq9#">Bootstrap</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="https://s.bootsnipp.com/iframe/xraq9#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://s.bootsnipp.com/iframe/xraq9#">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://s.bootsnipp.com/iframe/xraq9#">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://s.bootsnipp.com/iframe/xraq9#">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://s.bootsnipp.com/iframe/xraq9#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="w-25">
+                <input type="text" class="form-control rounded-0 bg-dark ser-input" id="ser-input" placeholder="Search...">
+                <div class="search-full-view">
+                    <div class="input-group">
+                      <input type="text" class="form-control" placeholder="Search...">
+                      <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    </div>
+                    <button class="btn btn-close" id="search-close"> <img src="./ed5b870c-clear-close-cancel-white.png"></button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- Navigation -->
+    
+    <h1 class="m-3">Full Screen Search Popup On Focus</h1>
+
+	<script type="text/javascript">
+	    $(document).ready(function() {
+        $("#ser-input").focus(function() {
+            $('.search-full-view').addClass("search-normal-screen");
+        });
+        $("#search-close").click(function() {
+            $('.search-full-view').removeClass("search-normal-screen");
+        });
+    });
+	</script>
+
+
+<div id="hc_extension_bkgnd" style="position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; z-index: -1999999999; display: block; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"></div><span id="hc_extension_svg_filters" hidden=""><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs><filter x="0" y="0" width="99999" height="99999" id="hc_extension_off"><fecomponenttransfer><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_highcontrast"><fecomponenttransfer><fefuncr type="gamma" exponent="3.0"></fefuncr><fefuncg type="gamma" exponent="3.0"></fefuncg><fefuncb type="gamma" exponent="3.0"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_highcontrast_back"><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_grayscale"><fecolormatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"></fecolormatrix><fecomponenttransfer><fefuncr type="gamma" exponent="3"></fefuncr><fefuncg type="gamma" exponent="3"></fefuncg><fefuncb type="gamma" exponent="3"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_grayscale_back"><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert"><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert_back"><fecomponenttransfer><fefuncr type="table" tableValues="1 0"></fefuncr><fefuncg type="table" tableValues="1 0"></fefuncg><fefuncb type="table" tableValues="1 0"></fefuncb></fecomponenttransfer><fecomponenttransfer><fefuncr type="gamma" exponent="1.7"></fefuncr><fefuncg type="gamma" exponent="1.7"></fefuncg><fefuncb type="gamma" exponent="1.7"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert_grayscale"><fecolormatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"></fecolormatrix><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_yellow_on_black"><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer><fecolormatrix type="matrix" values="0.3 0.5 0.2 0 0 0.3 0.5 0.2 0 0 0 0 0 0 0 0 0 0 1 0"></fecolormatrix></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_yellow_on_black_back"><fecomponenttransfer><fefuncr type="table" tableValues="1 0"></fefuncr><fefuncg type="table" tableValues="1 0"></fefuncg><fefuncb type="table" tableValues="1 0"></fefuncb></fecomponenttransfer><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter></defs></svg></span></body></html>

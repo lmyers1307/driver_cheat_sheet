@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<!-- saved from url=(0050)https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3 -->
+<html lang="en" hc="b3" hcx="3"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Full screen search animation - Bootsnipp.com</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./bootstrap.min(1).css" rel="stylesheet" id="bootstrap-css">
+    <style type="text/css">
+    body 
+{
+	font-family: Trebuchet MS !important;	 
+}
+
+h1.head
+{
+	color:#DE5260 !important;
+}
+
+.morphsearch 
+{
+	width: 400px;
+	min-height: 40px;
+	border:2px solid #eee;
+	position: absolute;
+	z-index: 10000;
+	top: 250px;
+	left:0px;
+	margin-left:10px; 
+	transform-origin: 100% 0;
+	transition-property: min-height, width, top, right;
+	transition-duration: 0.5s;
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.morphsearch.open 
+{
+	width: 98%;
+	padding:20px 0px;  
+	min-height: 100%;
+	top: 0px;
+	left: 0px;
+}
+
+.morphsearch-form 
+{
+	width: 100%;
+	height: 40px;
+	margin: 0 auto;
+	position: relative;
+	transition-property: width, height, transform;
+	transition-duration: 0.5s;
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.morphsearch.open .morphsearch-form 
+{
+	width: 80%;
+	height: 140px;
+	transform: translate3d(0,3em,0);
+}
+
+.morphsearch-input 
+{
+	width: 100%;
+	height: 100%;
+	padding: 0 10% 0 10px;
+	font-weight: 700;
+	border: none;
+	background: transparent;
+	font-size: 1em;
+	color:#fff;
+	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
+}
+
+.morphsearch.open .morphsearch-input 
+{
+	font-size: 100px;
+	border-bottom:3px solid #de5260;
+}
+
+/* placeholder */
+.morphsearch-input::-webkit-input-placeholder {
+	color: #c2c2c2;
+}
+
+.morphsearch-input:-moz-placeholder {
+	color: #c2c2c2;
+}
+
+.morphsearch-input::-moz-placeholder {
+	color: #c2c2c2;
+}
+
+.morphsearch-input:-ms-input-placeholder {
+	color: #c2c2c2;
+}
+
+
+input[type="search"] 
+{  
+	box-sizing: border-box;	
+}
+
+.morphsearch-input:focus,
+.morphsearch-submit:focus 
+{
+	outline: none;
+}
+
+
+
+.morphsearch.open .morphsearch-submit {
+	pointer-events: auto;
+	opacity: 1;
+	-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
+	-webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
+	transition: opacity 0.3s, transform 0.3s;
+	-webkit-transition-delay: 0.5s;
+	transition-delay: 0.5s;
+}
+
+.morphsearch-close {
+	width: 36px;
+	height: 36px;
+	position: absolute;
+	right: 1em;
+	top: 1em;
+	overflow: hidden;
+	text-indent: 100%;
+	cursor: pointer;
+	pointer-events: none;
+	opacity: 0;
+	-webkit-transform: scale3d(0,0,1);
+	transform: scale3d(0,0,1);
+}
+
+.morphsearch.open .morphsearch-close 
+{
+	opacity: 1;
+	pointer-events: auto;
+	transform: scale3d(1,1,1);
+	transition: opacity 0.3s, transform 0.3s;
+	transition-delay: 0.5s;
+}
+
+.morphsearch-close::before,
+.morphsearch-close::after 
+{
+	content: '';
+	position: absolute;
+	width: 2px;
+	height: 100%;
+	top: 0;
+	left: 50%;
+	border-radius: 3px;
+	opacity: 0.8;
+	background: #de5260;
+}
+
+.morphsearch-close:hover.morphsearch-close::before,
+.morphsearch-close:hover.morphsearch-close::after {
+	opacity: 1;
+}
+
+.morphsearch-close::before {
+	-webkit-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+
+.morphsearch-close::after {
+	-webkit-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+}
+
+.morphsearch-content {
+	color: #333;
+	margin-top: 4.5em;
+	width: 100%;
+	height: 0;
+	overflow: hidden;
+	padding: 0 10.5%;
+	background: #f1f1f1;
+	position: absolute;
+	pointer-events: none;
+	opacity: 0;
+}
+
+.morphsearch.open .morphsearch-content {
+	opacity: 1;
+	height: auto;
+	overflow: visible; /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
+	pointer-events: auto;
+	-webkit-transition: opacity 0.3s 0.5s;
+	transition: opacity 0.3s 0.5s;
+}
+
+/* Overlay */
+.overlay 
+{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0,0,0,0.8);
+	opacity: 0;
+	pointer-events: none;
+	-webkit-transition: opacity 0.5s;
+	transition: opacity 0.5s;
+	-webkit-transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.morphsearch.open ~ .overlay {
+	opacity: 1;
+}
+
+@media screen and (max-width: 53.125em) 
+{
+	.morphsearch-input 
+	{
+		padding: 0 25% 0 10px;
+	}
+	.morphsearch.open .morphsearch-input 
+	{
+		font-size: 2em;
+	}
+
+	.morphsearch.open .morphsearch-form
+	{
+		height:70px; 
+	}	
+
+}
+
+@media screen and (max-width: 60.625em) 
+{
+	.morphsearch 
+	{
+		width: 80%;
+		top: 180px;
+		right: 10%;
+	}
+}
+
+
+    </style>
+    <script src="./jquery-1.10.2.min.js.download"></script>
+    <script src="./bootstrap.min.js(1).download"></script>
+    <script type="text/javascript">
+        window.alert = function(){};
+        var defaultCSS = document.getElementById('bootstrap-css');
+        function changeCSS(css){
+            if(css) $('head > link').filter(':first').replaceWith('<link rel="stylesheet" href="'+ css +'" type="text/css" />'); 
+            else $('head > link').filter(':first').replaceWith(defaultCSS); 
+        }
+        $( document ).ready(function() {
+          var iframe_height = parseInt($('html').height()); 
+          window.parent.postMessage( iframe_height, 'https://bootsnipp.com');
+        });
+    </script>
+<style id="hc_style" type="text/css">html[hc="a0"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_off"); } html[hcx="0"] img[src*="jpg"], html[hcx="0"] img[src*="jpeg"], html[hcx="0"] svg image, html[hcx="0"] img.rg_i, html[hcx="0"] embed, html[hcx="0"] object, html[hcx="0"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_off"); }  html[hc="a1"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_highcontrast"); } html[hcx="1"] img[src*="jpg"], html[hcx="1"] img[src*="jpeg"], html[hcx="1"] img.rg_i, html[hcx="1"] svg image, html[hcx="1"] embed, html[hcx="1"] object, html[hcx="1"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_highcontrast_back"); }  html[hc="a2"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_grayscale"); } html[hcx="2"] img[src*="jpg"], html[hcx="2"] img[src*="jpeg"], html[hcx="2"] img.rg_i, html[hcx="2"] svg image, html[hcx="2"] embed, html[hcx="2"] object, html[hcx="2"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_grayscale_back"); }  html[hc="a3"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_invert"); } html[hcx="3"] img[src*="jpg"], html[hcx="3"] img[src*="jpeg"], html[hcx="3"] img.rg_i, html[hcx="3"] svg image, html[hcx="3"] embed, html[hcx="3"] object, html[hcx="3"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_invert_back"); }  html[hc="a4"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_invert_grayscale"); } html[hcx="4"] img[src*="jpg"], html[hcx="4"] img[src*="jpeg"], html[hcx="4"] img.rg_i, html[hcx="4"] svg image, html[hcx="4"] embed, html[hcx="4"] object, html[hcx="4"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_invert_back"); }  html[hc="a5"] {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_yellow_on_black"); } html[hcx="5"] img[src*="jpg"], html[hcx="5"] img[src*="jpeg"], html[hcx="5"] img.rg_i, html[hcx="5"] svg image, html[hcx="5"] embed, html[hcx="5"] object, html[hcx="5"] video {   -webkit-filter: url("https://d2d3qesrx8xj6s.cloudfront.net/iframe/4n4y3#hc_extension_yellow_on_black_back"); }</style></head>
+<body style="">
+	
+	
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+		<title> Search Animation | 8-4 </title>
+		<link rel="stylesheet" href="./bootstrap.min(2).css">
+		<link rel="stylesheet" type="text/css" href="./search.css">
+		<link rel="icon" type="images/search.png">
+		<script src="./search.js.download"></script>
+	
+	
+		<div class="jumbotron text-center">
+	  		<h1 class="head"> Search Animation</h1>		
+		</div>
+		<div class="container">
+			<div id="morphsearch" class="morphsearch">
+				<form class="morphsearch-form">
+					<input class="morphsearch-input" type="search" placeholder="Search...">
+				</form>
+				<span class="morphsearch-close"></span>
+			</div><!-- /morphsearch -->
+			<header class="codrops-header">
+			</header>
+			<div class="overlay"></div>
+		</div><!-- /container -->
+		<script>
+			(function() {
+				var morphSearch = document.getElementById( 'morphsearch' ),
+					input = morphSearch.querySelector( 'input.morphsearch-input' ),
+					ctrlClose = morphSearch.querySelector( 'span.morphsearch-close' ),
+					isOpen = isAnimating = false,
+					// show/hide search area
+					toggleSearch = function(evt) {
+						// return if open and the input gets focused
+						if( evt.type.toLowerCase() === 'focus' && isOpen ) return false;
+
+						var offsets = morphsearch.getBoundingClientRect();
+						if( isOpen ) {
+							classie.remove( morphSearch, 'open' );
+
+							// trick to hide input text once the search overlay closes 
+							// todo: hardcoded times, should be done after transition ends
+							if( input.value !== '' ) {
+								setTimeout(function() {
+									classie.add( morphSearch, 'hideInput' );
+									setTimeout(function() {
+										classie.remove( morphSearch, 'hideInput' );
+										input.value = '';
+									}, 300 );
+								}, 500);
+							}
+							
+							input.blur();
+						}
+						else {
+							classie.add( morphSearch, 'open' );
+						}
+						isOpen = !isOpen;
+					};
+
+				// events
+				input.addEventListener( 'focus', toggleSearch );
+				ctrlClose.addEventListener( 'click', toggleSearch );
+				// esc key closes search overlay
+				// keyboard navigation events
+				document.addEventListener( 'keydown', function( ev ) {
+					var keyCode = ev.keyCode || ev.which;
+					if( keyCode === 27 && isOpen ) {
+						toggleSearch(ev);
+					}
+				} );
+
+
+				/***** for demo purposes only: don't allow to submit the form *****/
+				morphSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
+			})();
+		</script>
+	
+
+	<script type="text/javascript">
+	
+( function( window ) 
+
+{
+  'use strict';
+
+// class helper functions from bonzo https://github.com/ded/bonzo
+
+function classReg( className ) {
+  return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+}
+
+// classList support for class management
+// altho to be fair, the api sucks because it won't accept multiple classes at once
+var hasClass, addClass, removeClass;
+
+if ( 'classList' in document.documentElement ) {
+  hasClass = function( elem, c ) {
+    return elem.classList.contains( c );
+  };
+  addClass = function( elem, c ) {
+    elem.classList.add( c );
+  };
+  removeClass = function( elem, c ) {
+    elem.classList.remove( c );
+  };
+}
+else {
+  hasClass = function( elem, c ) {
+    return classReg( c ).test( elem.className );
+  };
+  addClass = function( elem, c ) {
+    if ( !hasClass( elem, c ) ) {
+      elem.className = elem.className + ' ' + c;
+    }
+  };
+  removeClass = function( elem, c ) {
+    elem.className = elem.className.replace( classReg( c ), ' ' );
+  };
+}
+
+function toggleClass( elem, c ) {
+  var fn = hasClass( elem, c ) ? removeClass : addClass;
+  fn( elem, c );
+}
+
+var classie = {
+  // full names
+  hasClass: hasClass,
+  addClass: addClass,
+  removeClass: removeClass,
+  toggleClass: toggleClass,
+  // short names
+  has: hasClass,
+  add: addClass,
+  remove: removeClass,
+  toggle: toggleClass
+};
+
+// transport
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( classie );
+} else {
+  // browser global
+  window.classie = classie;
+}
+
+})( window );
+
+
+	</script>
+
+
+<div id="hc_extension_bkgnd" style="position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; z-index: -1999999999; display: block; background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);"></div><span id="hc_extension_svg_filters" hidden=""><svg xmlns="http://www.w3.org/2000/svg" version="1.1"><defs><filter x="0" y="0" width="99999" height="99999" id="hc_extension_off"><fecomponenttransfer><fefuncr type="table" tableValues="0 1"></fefuncr><fefuncg type="table" tableValues="0 1"></fefuncg><fefuncb type="table" tableValues="0 1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_highcontrast"><fecomponenttransfer><fefuncr type="gamma" exponent="3.0"></fefuncr><fefuncg type="gamma" exponent="3.0"></fefuncg><fefuncb type="gamma" exponent="3.0"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_highcontrast_back"><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_grayscale"><fecolormatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"></fecolormatrix><fecomponenttransfer><fefuncr type="gamma" exponent="3"></fefuncr><fefuncg type="gamma" exponent="3"></fefuncg><fefuncb type="gamma" exponent="3"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_grayscale_back"><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert"><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert_back"><fecomponenttransfer><fefuncr type="table" tableValues="1 0"></fefuncr><fefuncg type="table" tableValues="1 0"></fefuncg><fefuncb type="table" tableValues="1 0"></fefuncb></fecomponenttransfer><fecomponenttransfer><fefuncr type="gamma" exponent="1.7"></fefuncr><fefuncg type="gamma" exponent="1.7"></fefuncg><fefuncb type="gamma" exponent="1.7"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_invert_grayscale"><fecolormatrix type="matrix" values="0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0.2126 0.7152 0.0722 0 0 0 0 0 1 0"></fecolormatrix><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_yellow_on_black"><fecomponenttransfer><fefuncr type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncr><fefuncg type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncg><fefuncb type="gamma" amplitude="-1" exponent="3" offset="1"></fefuncb></fecomponenttransfer><fecolormatrix type="matrix" values="0.3 0.5 0.2 0 0 0.3 0.5 0.2 0 0 0 0 0 0 0 0 0 0 1 0"></fecolormatrix></filter><filter x="0" y="0" width="99999" height="99999" id="hc_extension_yellow_on_black_back"><fecomponenttransfer><fefuncr type="table" tableValues="1 0"></fefuncr><fefuncg type="table" tableValues="1 0"></fefuncg><fefuncb type="table" tableValues="1 0"></fefuncb></fecomponenttransfer><fecomponenttransfer><fefuncr type="gamma" exponent="0.33"></fefuncr><fefuncg type="gamma" exponent="0.33"></fefuncg><fefuncb type="gamma" exponent="0.33"></fefuncb></fecomponenttransfer></filter></defs></svg></span></body></html>
